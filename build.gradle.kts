@@ -2,7 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.11"
-    id("org.openjfx.javafxplugin") version "0.0.5"
+    // Check if we are using JDK 11+ and apply plugin for loading JavaFX if needed
+    if(JavaVersion.current().isJava11Compatible) {
+        id("org.openjfx.javafxplugin") version "0.0.6"
+    }
 }
 
 group = "ru.mipt.npm"
@@ -18,8 +21,11 @@ dependencies {
     compile(group= "com.github.javafaker", name= "javafaker", version = "0.16")
 }
 
-javafx {
-    modules = listOf("javafx.controls")
+// Check if we are using JDK 11+ and apply plugin configuration if needed
+if(JavaVersion.current().isJava11Compatible) {
+    javafx {
+        modules = listOf("javafx.controls")
+    }
 }
 
 tasks.withType<KotlinCompile> {
