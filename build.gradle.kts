@@ -29,3 +29,27 @@ if(JavaVersion.current().isJava11Compatible) {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+task("runDSLDemo", JavaExec::class) {
+    group = "run"
+    main = "DSLDemoApp"
+    classpath = sourceSets["main"].runtimeClasspath
+    if(JavaVersion.current().isJava11Compatible) {
+        jvmArgs = listOf(
+            "--module-path", files(configurations.compileClasspath).asPath,
+            "--add-modules", "ALL-MODULE-PATH"
+        )
+    }
+}
+
+task("runTableDemo", JavaExec::class) {
+    group = "run"
+    main = "TableDemoApp"
+    classpath = sourceSets["main"].runtimeClasspath
+    if(JavaVersion.current().isJava11Compatible) {
+        jvmArgs = listOf(
+            "--module-path", files(configurations.compileClasspath).asPath,
+            "--add-modules", "ALL-MODULE-PATH"
+        )
+    }
+}
