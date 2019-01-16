@@ -23,9 +23,7 @@ dependencies {
 
 // Check if we are using JDK 11+ and apply plugin configuration if needed
 if(JavaVersion.current().isJava11Compatible) {
-    javafx {
-        modules = listOf("javafx.controls")
-    }
+    apply(from = "build-jdk11.gradle")
 }
 
 tasks.withType<KotlinCompile> {
