@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.11"
+    kotlin("jvm") version "1.3.72"
     // Check if we are using JDK 11+ and apply plugin for loading JavaFX if needed
     if(JavaVersion.current().isJava11Compatible) {
-        id("org.openjfx.javafxplugin") version "0.0.6"
+        id("org.openjfx.javafxplugin") version "0.0.8"
     }
 }
 
@@ -16,14 +16,16 @@ repositories {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile("no.tornado:tornadofx:1.7.17")
-    compile(group= "com.github.javafaker", name= "javafaker", version = "0.16")
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("no.tornado:tornadofx:1.7.19")
+    implementation(group= "com.github.javafaker", name= "javafaker", version = "0.16")
 }
 
 // Check if we are using JDK 11+ and apply plugin configuration if needed
 if(JavaVersion.current().isJava11Compatible) {
-    apply(from = "build-jdk11.gradle")
+    configure<org.openjfx.gradle.JavaFXOptions>{
+        modules("javafx.controls")
+    }
 }
 
 tasks.withType<KotlinCompile> {

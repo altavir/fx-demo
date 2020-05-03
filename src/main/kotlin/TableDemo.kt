@@ -44,7 +44,7 @@ class TableView : View("My View") {
                 FXCollections.emptyObservableList()
             } else {
                 val actualpage = pageNumberProperty.get().coerceAtMost(chunks.size - 1).coerceAtLeast(0)
-                chunks[actualpage].observable()
+                chunks[actualpage].asObservable()
             }
         }
     }
